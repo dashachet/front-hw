@@ -1,12 +1,12 @@
 import {SxProps} from "@mui/material";
 
-export const filterButtonsContainer: SxProps = {
-    display: "flex",
-    justifyContent: "space-between",
-}
+export const filterButtonsContainerSx: SxProps = {
+	display: 'flex',
+	justifyContent: 'space-between'
+};
 
-export const listItemSx = (isDone: boolean):SxProps=> ({
-         p:0,
-        justifyContent:'space-between',
-        opacity: isDone ? 0.5 : 1
-})
+export const getListItemSx = (isDone: boolean): SxProps => ({
+	p: 0,
+	justifyContent: 'space-between',
+	opacity: isDone ? 0.5 : 1
+});
