@@ -1,5 +1,6 @@
 import {FilterValues, Todolist} from "../App.tsx";
 
+
 type RemoveTodolistActionType = {
     type: "REMOVE-TODOLIST"
     payload: {
@@ -52,6 +53,43 @@ export const todolistReducer = (todolists: Array<Todolist>, action: ActionType):
         default:
            return todolists
    }
+}
+
+export const RemoveTodolistAC=(todolistId: string): RemoveTodolistActionType=> {
+    return(
+        {type: 'REMOVE-TODOLIST',
+    payload: {
+        id: todolistId,
+    }})
+}
+
+export const AddTodolistAC = (id: string, title: string): AddTodolistAT => {
+    return ({
+        type: 'ADD-TODOLIST',
+        payload: {
+            id,
+            title
+        }
+    })
+}
 
 
+export const ChangeTodoistTitleAC = (id: string, title: string): ChangeTitleTodolistAT => {
+    return ({  type: 'CHANGE-TITLE-TODOLIST',
+        payload: {
+            id,
+            title
+        }
+
+    })
+}
+
+export const ChangeTodolistFilterAC= (id: string, filter: FilterValues):ChangeFilterTodolistAT => {
+    return ({ type: 'CHANGE-FILTER-TODOLIST',
+        payload: {
+        id,
+            filter
+    }
+
+    })
 }
