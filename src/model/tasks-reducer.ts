@@ -11,9 +11,10 @@ export type AddTaskAT =  ReturnType<typeof AddTaskAC>
     //     title: string
     //     isDone: boolean
     // }
-
+export type ChangeTitleAT = ReturnType<typeof changeTaskTitleAC>
+export type ChangeTaskAT = ReturnType<typeof changeTaskStatusAC>
 export type RemoveTaskAT =  ReturnType<typeof RemoveTaskAC>
-type ActionType = AddTaskAT | RemoveTaskAT;
+type ActionType = AddTaskAT | RemoveTaskAT | ChangeTaskAT | ChangeTitleAT
 
 export const tasksReducer = (tasks: TasksState, action: ActionType): TasksState => {
     switch (action.type) {
@@ -30,6 +31,11 @@ export const tasksReducer = (tasks: TasksState, action: ActionType): TasksState 
             const filteredTasks= tasks[action.payload.todolistId].filter(t=> t.id !== action.payload.id)
         // return  {...tasks, [action.payload.todolistId]: tasks[action.payload.todolistId].filter(task => task.id !== action.payload.id)}
             return {...tasks, [action.payload.todolistId]: filteredTasks}
+        case 'CHANGE-TASK':
+
+            return {...tasks, [action.payload.todolistId]: tasks[action.payload.todolistId].map(task => task.id == action.payload.taskId ? {...task, isDone: action.payload.isDone} : task)}
+        case 'CHANGE-TITLE':
+            return {...tasks, [action.payload.todolistId]: tasks[action.payload.todolistId].map(task => task.id === action.payload.taskId ? {...task, title: action.payload.title} : task)}
         default:
             return tasks
     }
@@ -49,3 +55,17 @@ export const RemoveTaskAC = (id: string, todolistId: string)=> {
             , todolistId: todolistId}
     }) as const
 }
+
+export const changeTaskStatusAC=(payload: {taskId: string, isDone: boolean, todolistId:string})=> {
+    return ({
+        type: "CHANGE-TASK",
+        payload
+    } as const)
+
+}
+
+export const  changeTaskTitleAC = (payload: {taskId: string, title: string, todolistId: string})=> {
+    return ({
+        type: 'CHANGE-TITLE',
+        payload
+}as const) }
