@@ -1,7 +1,13 @@
 import {v1} from 'uuid'
 import { expect, test } from 'vitest'
 import type {Todolist} from '../App'
-import {AddTodolistAC, ChangeTodoistTitleAC, RemoveTodolistAC, todolistReducer} from './todolist-reducer'
+import {
+    AddTodolistAC,
+    ChangeTodoistTitleAC,
+    ChangeTodolistFilterAC,
+    RemoveTodolistAC,
+    todolistReducer
+} from './todolist-reducer'
 
 
 test('correct todolist should be deleted', () => {
@@ -43,7 +49,7 @@ test('correct todolist should be created', () => {
 
     const newTodolistTitle = 'New Todolist'
 
-    const endState = todolistReducer(startState,  AddTodolistAC(v1(), newTodolistTitle))
+    const endState = todolistReducer(startState,  AddTodolistAC(newTodolistTitle))
 
     expect(endState.length).toBe(3)
     expect(endState[2].title).toBe(newTodolistTitle)
@@ -88,7 +94,7 @@ test('correct todolist should change its filter', () => {
     //     },
     // } as const
 
-    const endState = todolistReducer(startState, ChangeTodoistTitleAC(todolistId2, 'completed'))
+    const endState = todolistReducer(startState, ChangeTodolistFilterAC(todolistId2, 'completed'))
 
     expect(endState[0].filter).toBe('all')
     expect(endState[1].filter).toBe('completed')

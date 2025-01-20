@@ -1,6 +1,7 @@
 import {TasksState} from "../App.tsx";
 import {Task} from "../App";
 import {v1} from "uuid";
+import {AddTodolistAT} from "./todolist-reducer.ts";
 
 
 
@@ -14,7 +15,7 @@ export type AddTaskAT =  ReturnType<typeof AddTaskAC>
 export type ChangeTitleAT = ReturnType<typeof changeTaskTitleAC>
 export type ChangeTaskAT = ReturnType<typeof changeTaskStatusAC>
 export type RemoveTaskAT =  ReturnType<typeof RemoveTaskAC>
-type ActionType = AddTaskAT | RemoveTaskAT | ChangeTaskAT | ChangeTitleAT
+type ActionType = AddTaskAT | RemoveTaskAT | ChangeTaskAT | ChangeTitleAT | AddTodolistAT
 
 export const tasksReducer = (tasks: TasksState, action: ActionType): TasksState => {
     switch (action.type) {
@@ -36,6 +37,9 @@ export const tasksReducer = (tasks: TasksState, action: ActionType): TasksState 
             return {...tasks, [action.payload.todolistId]: tasks[action.payload.todolistId].map(task => task.id == action.payload.taskId ? {...task, isDone: action.payload.isDone} : task)}
         case 'CHANGE-TITLE':
             return {...tasks, [action.payload.todolistId]: tasks[action.payload.todolistId].map(task => task.id === action.payload.taskId ? {...task, title: action.payload.title} : task)}
+        case 'ADD-TODOLIST':
+            return {...tasks, [action.payload.todolistId]: [] }
+
         default:
             return tasks
     }
