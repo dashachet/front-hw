@@ -2,7 +2,7 @@ import {FilterValues, Todolist} from "../App.tsx";
 import {v1} from "uuid";
 
 
-type RemoveTodolistActionType = {
+ export type RemoveTodolistActionType = {
     type: "REMOVE-TODOLIST"
     payload: {
     id: string
