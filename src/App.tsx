@@ -102,14 +102,18 @@ export const App = () => {
     // const newTodolist: Todolist = {id: todolistId, title, filter: 'all'}
     // setTodolists([newTodolist, ...todolists])
     // setTasks({...tasks, [todolistId]: []})
-    dispatchToTodolist(AddTodolistAC(title))
+    const action = AddTodolistAC(title)
+    dispatchToTodolist(action)
+    dispatchToTasks(action)
   }
 
   const deleteTodolist = (todolistId: string) => {
     // setTodolists(todolists.filter(todolist => todolist.id !== todolistId))
     // delete tasks[todolistId]
     // setTasks({...tasks})
-    dispatchToTodolist(RemoveTodolistAC(todolistId))
+    const action = RemoveTodolistAC(todolistId)
+    dispatchToTodolist(action)
+    dispatchToTasks(action)
   }
 
   const changeTodolistTitle = (todolistId: string, title: string) => {
